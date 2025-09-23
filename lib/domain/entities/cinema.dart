@@ -1,26 +1,15 @@
-class Cinema {
-  final String id;
-  final String name;
-  final double latitude;
-  final double longitude;
-  final double? distance;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Cinema({
-    required this.id,
-    required this.name,
-    required this.latitude,
-    required this.longitude,
-    this.distance,
-  });
+part 'cinema.freezed.dart';
 
-  
-  Cinema copyWith({double? distance}) {
-    return Cinema(
-      id: id,
-      name: name,
-      latitude: latitude,
-      longitude: longitude,
-      distance: distance ?? this.distance,
-    );
-  }
+@freezed
+class Cinema with _$Cinema {
+  const factory Cinema({
+    required String id,
+    required String name,
+    required double latitude,
+    required double longitude,
+    double? distance,
+  }) = _Cinema;
 }
+
