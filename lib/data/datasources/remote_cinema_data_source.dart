@@ -1,33 +1,20 @@
-import '../models/cinema_model.dart';
+import 'package:dio/dio.dart';
+import 'package:retrofit/retrofit.dart';
+import '../models/cinema_response.dart';
 
-class RemoteCinemaDataSource {
-  Future<List<CinemaModel>> fetchCinemasForBounds(
-      double north,
-      double south,
-      double east,
-      double west,
-      ) async {
-    await Future.delayed(const Duration(milliseconds: 300));
+part 'remote_cinema_data_source.g.dart';
 
-    return [
-      CinemaModel(
-        id: '1',
-        name: 'Silver Screen',
-        latitude: 53.9,
-        longitude: 27.5667,
-      ),
-      CinemaModel(
-        id: '2',
-        name: 'Dom Kino',
-        latitude: 53.91,
-        longitude: 27.55,
-      ),
-      CinemaModel(
-        id: '3',
-        name: 'Velcom Cinema',
-        latitude: 53.92,
-        longitude: 27.58,
-      ),
-    ];
-  }
+@RestApi(baseUrl: "https://maps.googleapis.com/maps/api/place")
+abstract class RemoteCinemaDataSource {
+  factory RemoteCinemaDataSource(Dio dio, {String baseUrl}) =
+  _RemoteCinemaDataSource;
+
+  @GET("/nearbysearch/json")
+  Future<CinemaResponse> fetchCinemasNearby(
+      @Query("location") String location, // "lat,lng"
+      @Query("radius") int radius, // meters
+      @Query("type") String type, // "movie_theater"
+      @Query("key") String apiKey,
+      );
 }
+

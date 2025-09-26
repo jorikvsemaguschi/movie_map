@@ -6,8 +6,9 @@ import '../models/cinema_model.dart';
 
 class CinemaRepositoryImpl implements CinemaRepository {
   final RemoteCinemaDataSource remoteDataSource;
+  final String apiKey;
 
-  CinemaRepositoryImpl(this.remoteDataSource);
+  CinemaRepositoryImpl(this.remoteDataSource, this.apiKey);
 
   @override
   Future<List<Cinema>> getCinemasForBounds(
@@ -16,13 +17,21 @@ class CinemaRepositoryImpl implements CinemaRepository {
       double east,
       double west,
       ) async {
-    final models = await remoteDataSource.fetchCinemasForBounds(
-      north,
-      south,
-      east,
-      west,
+    // Центр bounds
+    final centerLat = (north + south) / 2;
+    final centerLng = (east + west) / 2;
+    // Примерная оценка радиуса (метры)
+    final latDiff = (north - south).abs();
+    final lngDiff = (east - west).abs();
+    final radius = ((latDiff + lngDiff) / 2 * 111_000 / 2).toInt(); // 1 градус ~ 111 км
+
+    final response = await remoteDataSource.fetchCinemasNearby(
+      "$centerLat,$centerLng",
+      radius,
+      "movie_theater",
+      apiKey,
     );
 
-    return models.map((m) => m.toEntity()).toList();
+    return response.results.map((m) => m.toEntity()).toList();
   }
 }

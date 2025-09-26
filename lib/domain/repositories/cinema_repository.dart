@@ -8,3 +8,4 @@ abstract class CinemaRepository {
       double west,
       );
 }
+

@@ -7,16 +7,12 @@ class GetCinemasForBoundsUseCase {
   GetCinemasForBoundsUseCase(this.repository);
 
   Future<List<Cinema>> call(
-      double northEastLat,
-      double northEastLng,
-      double southWestLat,
-      double southWestLng,
+      double north,
+      double south,
+      double east,
+      double west,
       ) {
-    return repository.getCinemasForBounds(
-      northEastLat,
-      northEastLng,
-      southWestLat,
-      southWestLng,
-    );
+    return repository.getCinemasForBounds(north, south, east, west);
   }
 }
+

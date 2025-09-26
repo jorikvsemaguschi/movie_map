@@ -7,24 +7,43 @@ part 'cinema_model.g.dart';
 @freezed
 class CinemaModel with _$CinemaModel {
   const factory CinemaModel({
-    required String id,
+    @JsonKey(name: "place_id") required String id,
     required String name,
-    required double latitude,
-    required double longitude,
-    double? distance,
+    required Geometry geometry,
   }) = _CinemaModel;
 
   factory CinemaModel.fromJson(Map<String, dynamic> json) =>
       _$CinemaModelFromJson(json);
 }
 
+@freezed
+class Geometry with _$Geometry {
+  const factory Geometry({
+    required Location location,
+  }) = _Geometry;
+
+  factory Geometry.fromJson(Map<String, dynamic> json) =>
+      _$GeometryFromJson(json);
+}
+
+@freezed
+class Location with _$Location {
+  const factory Location({
+    required double lat,
+    required double lng,
+  }) = _Location;
+
+  factory Location.fromJson(Map<String, dynamic> json) =>
+      _$LocationFromJson(json);
+}
+
 extension CinemaModelX on CinemaModel {
   Cinema toEntity() => Cinema(
     id: id,
     name: name,
-    latitude: latitude,
-    longitude: longitude,
-    distance: distance,
+    latitude: geometry.location.lat,
+    longitude: geometry.location.lng,
   );
 }
+
 
