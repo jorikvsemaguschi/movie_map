@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:movie_map/domain/entities/cinema.dart';
 
+// Base event for map
 abstract class MapEvent extends Equatable {
   const MapEvent();
 
@@ -8,6 +9,7 @@ abstract class MapEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+// Event for map movement
 class MapMoved extends MapEvent {
   final double north;
   final double south;
@@ -25,6 +27,7 @@ class MapMoved extends MapEvent {
   List<Object?> get props => [north, south, east, west];
 }
 
+// Event for cinema selection
 class CinemaSelected extends MapEvent {
   final Cinema cinema;
 
@@ -33,3 +36,9 @@ class CinemaSelected extends MapEvent {
   @override
   List<Object?> get props => [cinema];
 }
+
+// Event for cinema deselection
+class CinemaDeselected extends MapEvent {
+  const CinemaDeselected();
+}
+

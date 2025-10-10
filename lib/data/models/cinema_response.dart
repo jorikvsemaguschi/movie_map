@@ -4,6 +4,7 @@ import 'cinema_model.dart';
 part 'cinema_response.freezed.dart';
 part 'cinema_response.g.dart';
 
+// API response wrapper for cinemas
 @freezed
 class CinemaResponse with _$CinemaResponse {
   const factory CinemaResponse({

@@ -4,6 +4,7 @@ import 'package:movie_map/domain/entities/cinema.dart';
 part 'cinema_model.freezed.dart';
 part 'cinema_model.g.dart';
 
+// Model for cinema data from API
 @freezed
 class CinemaModel with _$CinemaModel {
   const factory CinemaModel({
@@ -16,6 +17,7 @@ class CinemaModel with _$CinemaModel {
       _$CinemaModelFromJson(json);
 }
 
+// Geometry model for location
 @freezed
 class Geometry with _$Geometry {
   const factory Geometry({
@@ -26,6 +28,7 @@ class Geometry with _$Geometry {
       _$GeometryFromJson(json);
 }
 
+// Location coordinates
 @freezed
 class Location with _$Location {
   const factory Location({
@@ -37,6 +40,7 @@ class Location with _$Location {
       _$LocationFromJson(json);
 }
 
+// Convert CinemaModel to domain entity
 extension CinemaModelX on CinemaModel {
   Cinema toEntity() => Cinema(
     id: id,

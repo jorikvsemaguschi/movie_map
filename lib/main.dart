@@ -11,6 +11,7 @@ import 'domain/usecases/get_cinemas_for_bounds.dart';
 import 'domain/usecases/sort_cinemas_by_distance.dart';
 
 void main() {
+  // Setup dependencies
   final dio = Dio();
   const apiKey = "AIzaSyDdyo9wzS2lWh_T1rno00KvSqgljApN1zs";
 
@@ -20,12 +21,14 @@ void main() {
   final getCinemasForBounds = GetCinemasForBoundsUseCase(repository);
   final sortCinemasByDistance = SortCinemasByDistanceUseCase();
 
+  // Run app
   runApp(MovieMapApp(
     getCinemasForBounds: getCinemasForBounds,
     sortCinemasByDistance: sortCinemasByDistance,
   ));
 }
 
+// Main app widget
 class MovieMapApp extends StatelessWidget {
   final GetCinemasForBoundsUseCase getCinemasForBounds;
   final SortCinemasByDistanceUseCase sortCinemasByDistance;

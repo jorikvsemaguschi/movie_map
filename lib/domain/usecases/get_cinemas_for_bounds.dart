@@ -1,6 +1,7 @@
 import '../entities/cinema.dart';
 import '../repositories/cinema_repository.dart';
 
+// Use case for fetching cinemas within map bounds
 class GetCinemasForBoundsUseCase {
   final CinemaRepository repository;
 
